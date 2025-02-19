@@ -70,12 +70,19 @@ function App() {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('es-ES', {
+    const dateParts = dateString.split('-'); // Divide YYYY-MM-DD
+    const fixedDate = new Date(
+      parseInt(dateParts[0]),  // Año
+      parseInt(dateParts[1]) - 1,  // Mes (JavaScript lo cuenta desde 0)
+      parseInt(dateParts[2])   // Día
+    );
+    return fixedDate.toLocaleDateString('es-ES', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
   };
+  
 
   const handleDownload = () => {
     const excelData = registrations.map(reg => ({
