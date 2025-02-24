@@ -11,7 +11,9 @@ interface Registration {
   document: string;
   payment_reference: string;
   payment_date: string;
+  total_paym_value: number;
   selected_course: string;
+  num_seats: number;
   created_at: string;
   status: string;
 }
@@ -30,6 +32,7 @@ function App() {
         const result = await response.json();
         if (result.success) {
           setRegistrations(result.data);
+          console.log(result.data);
         }
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -93,6 +96,7 @@ function App() {
       'Teléfono': reg.phone,
       'Documento': reg.document,
       'Referencia de Pago': reg.payment_reference,
+      'Valor Total Pagado': reg.total_paym_value,
       'Fecha de Pago': new Date(reg.payment_date).toLocaleDateString('es-ES'),
       'Curso Seleccionado': new Date(reg.selected_course).toLocaleDateString('es-ES'),
       'Estado del Pago': reg.status
@@ -161,7 +165,9 @@ function App() {
               <th>Teléfono</th>
               <th>Documento</th>
               <th>Referencia de Pago</th>
+              <th>Valor Pagado</th>
               <th>Curso Seleccionado</th>
+              <th>Cantidad Comprada</th>
               <th>Estado del pago</th>
             </tr>
           </thead>
@@ -174,7 +180,9 @@ function App() {
                 <td>{registration.phone}</td>
                 <td>{registration.document}</td>
                 <td>{registration.payment_reference}</td>
+                <td>{registration.total_paym_value}</td>
                 <td>{formatDate(registration.selected_course)}</td>
+                <td>{registration.num_seats}</td>
                 <td>{registration.status}</td>
               </tr>
             ))}
