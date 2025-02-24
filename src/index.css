@@ -1,4 +1,3 @@
-/* Reset básico */
 * {
   margin: 0;
   padding: 0;
@@ -25,6 +24,8 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .title {
@@ -102,7 +103,8 @@ body {
   background: white;
   border-radius: 10px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  overflow: hidden;
+  overflow: auto; /* Cambiado de overflow: hidden a overflow: auto */
+  max-width: 100%;
 }
 
 .table-header {
@@ -111,6 +113,8 @@ body {
   align-items: center;
   padding: 20px;
   border-bottom: 1px solid #eee;
+  flex-wrap: wrap;
+  gap: 15px;
 }
 
 .download-button {
@@ -123,6 +127,7 @@ body {
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  white-space: nowrap;
 }
 
 .download-button:hover {
@@ -132,18 +137,23 @@ body {
 table {
   width: 100%;
   border-collapse: collapse;
+  min-width: 1000px; /* Ancho mínimo para asegurar que todas las columnas se vean bien */
 }
 
 th, td {
-  padding: 12px 20px;
-  text-align: center;
+  padding: 12px 15px;
+  text-align: left;
   border-bottom: 1px solid #eee;
+  white-space: nowrap; /* Evita que el texto se rompa */
 }
 
 th {
   background: #f9fafb;
   font-weight: 500;
   color: #666;
+  position: sticky;
+  top: 0;
+  z-index: 10;
 }
 
 tr:hover {
@@ -153,6 +163,10 @@ tr:hover {
 /* Dark Mode */
 .dark {
   background-color: #1a1a1a;
+  color: #fff;
+}
+
+.dark .title {
   color: #fff;
 }
 
@@ -182,18 +196,61 @@ tr:hover {
   background: #333;
 }
 
-/* Responsive */
+/* Mejoras Responsive */
+@media (max-width: 1200px) {
+  .container {
+    max-width: 100%;
+    padding: 15px;
+  }
+  
+  th, td {
+    padding: 10px;
+  }
+}
+
+@media (max-width: 992px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 @media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    gap: 15px;
+    justify-content: center;
+    text-align: center;
   }
-
+  
+  .title {
+    font-size: 20px;
+    width: 100%;
+    text-align: center;
+  }
+  
   .stats-grid {
     grid-template-columns: 1fr;
   }
+  
+  .table-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .table-header h2 {
+    margin-bottom: 10px;
+  }
+}
 
-  .table-container {
-    overflow-x: auto;
+@media (max-width: 480px) {
+  .stat-card {
+    padding: 15px;
+  }
+  
+  .stat-value {
+    font-size: 20px;
+  }
+  
+  .download-button {
+    width: 100%;
+    justify-content: center;
   }
 }
