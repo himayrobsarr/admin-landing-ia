@@ -79,13 +79,27 @@ function App() {
       parseInt(dateParts[1]) - 1,  // Mes (JavaScript lo cuenta desde 0)
       parseInt(dateParts[2])   // Día
     );
+    
+    // Verificar si el año es 1970 y retornar "N/A" en ese caso
+    if (fixedDate.getFullYear() === 1970) {
+      return "N/A";
+    }
+    
     return fixedDate.toLocaleDateString('es-ES', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric'
     });
   };
   
+  // Nuevo: Función para renderizar el estado con estilo visual
+  const renderStatus = (status: string) => {
+    const statusClass = status.toUpperCase() === 'EXITOSO' 
+      ? 'status-badge status-exitoso' 
+      : 'status-badge status-pendiente';
+    
+    return <span className={statusClass}>{status}</span>;
+  };
 
   const handleDownload = () => {
     const excelData = registrations.map(reg => ({
@@ -97,8 +111,8 @@ function App() {
       'Documento': reg.document,
       'Referencia de Pago': reg.payment_reference,
       'Valor Total Pagado': reg.total_paym_value,
-      'Fecha de Pago': new Date(reg.payment_date).toLocaleDateString('es-ES'),
-      'Curso Seleccionado': new Date(reg.selected_course).toLocaleDateString('es-ES'),
+      'Fecha de Pago': formatDate(reg.payment_date),
+      'Curso Seleccionado': formatDate(reg.selected_course),
       'Estado del Pago': reg.status
     }));
 
@@ -160,15 +174,16 @@ function App() {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Nombre</th>
+              <th>Nombre Completo</th>
               <th>Email</th>
               <th>Teléfono</th>
               <th>Documento</th>
               <th>Referencia de Pago</th>
-              <th>Valor Pagado</th>
-              <th>Curso Seleccionado</th>
-              <th>Cantidad Comprada</th>
-              <th>Estado del pago</th>
+              <th>Valor del Pago</th>
+              <th>Fecha del Pago</th>
+              <th>Fecha Comprada</th>
+              <th>Cantidad</th>
+              <th>Estado</th>
             </tr>
           </thead>
           <tbody>
@@ -181,9 +196,10 @@ function App() {
                 <td>{registration.document}</td>
                 <td>{registration.payment_reference}</td>
                 <td>{registration.total_paym_value}</td>
+                <td>{formatDate(registration.payment_date)}</td>
                 <td>{formatDate(registration.selected_course)}</td>
                 <td>{registration.num_seats}</td>
-                <td>{registration.status}</td>
+                <td>{renderStatus(registration.status)}</td>
               </tr>
             ))}
           </tbody>
