@@ -220,6 +220,13 @@ tr:hover {
   border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
+/* Nuevo: Estilos para la badge "EXPIRADO" */
+.status-expirado {
+  background-color: rgba(255, 0, 0, 0.15);  /* Color de fondo rojo claro */
+  color: #dc2626; /* Rojo oscuro */
+  border: 1px solid rgba(255, 0, 0, 0.3);  /* Borde rojo */
+}
+
 /* Añadir indicador visual (punto) */
 .status-badge::before {
   content: "";
@@ -239,6 +246,11 @@ tr:hover {
   background-color: #d97706;
 }
 
+/* Nuevo: Estilo para el punto de la badge EXPIRADO */
+.status-expirado::before {
+  background-color: #dc2626; /* Rojo oscuro para el punto */
+}
+
 /* Estilos para modo oscuro */
 .dark .status-exitoso {
   background-color: rgba(34, 197, 94, 0.2);
@@ -251,6 +263,18 @@ tr:hover {
   color: #fbbf24;
   border-color: rgba(251, 191, 36, 0.3);
 }
+
+/* Nuevo: Estilos para badge "EXPIRADO" en modo oscuro */
+.dark .status-expirado {
+  background-color: rgba(255, 0, 0, 0.2);  /* Fondo rojo claro */
+  color: #f87171;  /* Rojo claro */
+  border-color: rgba(255, 0, 0, 0.3);  /* Borde rojo */
+}
+
+.dark .status-expirado::before {
+  background-color: #f87171; /* Rojo claro para el punto */
+}
+
 
 /* Mejoras Responsive */
 @media (max-width: 1200px) {

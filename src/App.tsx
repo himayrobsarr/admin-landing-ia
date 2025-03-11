@@ -73,6 +73,9 @@ function App() {
   };
 
   const formatDate = (dateString: string) => {
+    if (!dateString) {
+      return "N/A";
+    }
     const dateParts = dateString.split('-'); // Divide YYYY-MM-DD
     const fixedDate = new Date(
       parseInt(dateParts[0]),  // Año
@@ -93,13 +96,18 @@ function App() {
   };
   
   // Nuevo: Función para renderizar el estado con estilo visual
-  const renderStatus = (status: string) => {
-    const statusClass = status.toUpperCase() === 'EXITOSO' 
-      ? 'status-badge status-exitoso' 
+// Actualizar la función renderStatus
+const renderStatus = (status: string) => {
+  const statusClass =
+    status.toUpperCase() === 'EXITOSO'
+      ? 'status-badge status-exitoso'
+      : status.toUpperCase() === 'EXPIRADO'
+      ? 'status-badge status-expirado'
       : 'status-badge status-pendiente';
-    
-    return <span className={statusClass}>{status}</span>;
-  };
+
+  return <span className={statusClass}>{status}</span>;
+};
+
 
   const handleDownload = () => {
     const excelData = registrations.map(reg => ({
